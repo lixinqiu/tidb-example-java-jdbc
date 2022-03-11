@@ -12,10 +12,12 @@ stylesheet.css
 # Ignore Gradle build output directory
 build
 **/certs
+target
 
 .classpath
 .project
 .settings
+.idea
 
 # jenv local settings
 .java-version
