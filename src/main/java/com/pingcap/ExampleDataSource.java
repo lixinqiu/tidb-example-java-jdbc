@@ -68,6 +68,10 @@ public class ExampleDataSource {
     }
 }
 
+/**
+ * Data access object used by 'ExampleDataSource'.
+ * Example for CURD and bulk insert
+ */
 class ExampleDataDAO {
     private final MysqlDataSource ds;
     private final Random rand = new Random();
@@ -76,10 +80,25 @@ class ExampleDataDAO {
         this.ds = ds;
     }
 
+
+    /**
+     * There is a shortcut to run a SQL by commit automatically
+     */
     public Integer runSQL(String caller, String sql, Object... args) {
         return runSQL(caller, true, sql, args);
     }
 
+    /**
+     * Run SQL and commit using automatic and manual way
+     * @param caller caller name, to print log
+     * @param autoCommit if setting is true, will commit automatically,
+     *                   but whatever the setting is, it will be committed
+     * @param sql a String containing the SQL code you want to
+     *            execute.  Can have placeholders, e.g., "INSERT INTO accounts
+     *            (id, balance) VALUES (?, ?)".
+     * @param args String Varargs to fill in the SQL
+     * @return update count
+     */
     public Integer runSQL(String caller, Boolean autoCommit, String sql, Object... args) {
         int updateCount = 0;
         try {
