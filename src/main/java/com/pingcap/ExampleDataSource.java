@@ -22,49 +22,51 @@ public class ExampleDataSource {
         MysqlDataSource mysqlDataSource = new MysqlDataSource();
 
         // 1.2 Set server name, port, database name , username and password
-        mysqlDataSource.setServerName("localhost");
-        mysqlDataSource.setPortNumber(4000);
-        mysqlDataSource.setDatabaseName("bank");
-        mysqlDataSource.setUser("root");
-        mysqlDataSource.setPassword("");
+        System.out.println("TIDB_JDBC:" + System.getenv("TIDB_JDBC"));
 
-        // Or you can use jdbc string instead
-        // mysqlDataSource.setURL("jdbc:mysql://localhost:4000/bank?user=root");
+        // mysqlDataSource.setServerName("localhost");
+        // mysqlDataSource.setPortNumber(4000);
+        // mysqlDataSource.setDatabaseName("bank");
+        // mysqlDataSource.setUser("root");
+        // mysqlDataSource.setPassword("");
 
-        // 2. And then, create DAO to manager your data
-        ExampleDataDAO dao = new ExampleDataDAO(mysqlDataSource);
+        // // Or you can use jdbc string instead
+        // // mysqlDataSource.setURL("jdbc:mysql://localhost:4000/bank?user=root");
 
-        // Insert a few accounts "by hand", using INSERTs on the backend.
-        Map<String, Integer> balances = new HashMap<>();
-        String id1 = UUID.randomUUID().toString();
-        String id2 = UUID.randomUUID().toString();
-        balances.put(id1, 1000);
-        balances.put(id2, 250);
-        int updatedAccounts = dao.updateAccounts(balances);
-        System.out.printf("ExampleDataDAO.updateAccounts:\n    => %s total updated accounts\n", updatedAccounts);
+        // // 2. And then, create DAO to manager your data
+        // ExampleDataDAO dao = new ExampleDataDAO(mysqlDataSource);
 
-        // How much money is in these accounts?
-        BigDecimal balance1 = dao.getAccountBalance(id1);
-        BigDecimal balance2 = dao.getAccountBalance(id2);
-        System.out.printf("main:\n    => Account balances at time '%s':\n    ID %s => $%s\n    ID %s => $%s\n", LocalTime.now(), 1, balance1, 2, balance2);
+        // // Insert a few accounts "by hand", using INSERTs on the backend.
+        // Map<String, Integer> balances = new HashMap<>();
+        // String id1 = UUID.randomUUID().toString();
+        // String id2 = UUID.randomUUID().toString();
+        // balances.put(id1, 1000);
+        // balances.put(id2, 250);
+        // int updatedAccounts = dao.updateAccounts(balances);
+        // System.out.printf("ExampleDataDAO.updateAccounts:\n    => %s total updated accounts\n", updatedAccounts);
 
-        // Transfer $100 from account 1 to account 2, and print balances of them
-        Integer transferAmount = 100;
-        int transferredAccounts = dao.transferFunds(id1, id2, transferAmount);
-        if (transferredAccounts != -1) {
-            System.out.printf("ExampleDataDAO.transferFunds:\n    => $%s transferred between accounts %s and %s, %s rows updated\n",
-                    transferAmount, id1, id2, transferredAccounts);
-        }
-        balance1 = dao.getAccountBalance(id1);
-        balance2 = dao.getAccountBalance(id2);
-        System.out.printf("main:\n    => Account balances at time '%s':\n    ID %s => $%s\n    ID %s => $%s\n", LocalTime.now(), 1, balance1, 2, balance2);
+        // // How much money is in these accounts?
+        // BigDecimal balance1 = dao.getAccountBalance(id1);
+        // BigDecimal balance2 = dao.getAccountBalance(id2);
+        // System.out.printf("main:\n    => Account balances at time '%s':\n    ID %s => $%s\n    ID %s => $%s\n", LocalTime.now(), 1, balance1, 2, balance2);
 
-        // Bulk insertion example using JDBC's batching support.
-        int totalRowsInserted = dao.bulkInsertRandomAccountData(false, 100);
-        System.out.printf("\nExampleDataDAO.bulkInsertRandomAccountData:\n    => finished, %s total rows inserted\n", totalRowsInserted);
+        // // Transfer $100 from account 1 to account 2, and print balances of them
+        // Integer transferAmount = 100;
+        // int transferredAccounts = dao.transferFunds(id1, id2, transferAmount);
+        // if (transferredAccounts != -1) {
+        //     System.out.printf("ExampleDataDAO.transferFunds:\n    => $%s transferred between accounts %s and %s, %s rows updated\n",
+        //             transferAmount, id1, id2, transferredAccounts);
+        // }
+        // balance1 = dao.getAccountBalance(id1);
+        // balance2 = dao.getAccountBalance(id2);
+        // System.out.printf("main:\n    => Account balances at time '%s':\n    ID %s => $%s\n    ID %s => $%s\n", LocalTime.now(), 1, balance1, 2, balance2);
 
-        // Print out 10 account values.
-        dao.readAccounts(10);
+        // // Bulk insertion example using JDBC's batching support.
+        // int totalRowsInserted = dao.bulkInsertRandomAccountData(false, 100);
+        // System.out.printf("\nExampleDataDAO.bulkInsertRandomAccountData:\n    => finished, %s total rows inserted\n", totalRowsInserted);
+
+        // // Print out 10 account values.
+        // dao.readAccounts(10);
     }
 }
 
