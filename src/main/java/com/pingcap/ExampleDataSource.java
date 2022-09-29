@@ -27,14 +27,14 @@ public class ExampleDataSource {
         String TIDB_JDBC  = System.getenv("TIDB_JDBC") != null ? System.getenv("TIDB_JDBC") : "localhost";
 
 
-        // mysqlDataSource.setServerName(TIDB_JDBC);
-        // mysqlDataSource.setPortNumber(31331);
-        // mysqlDataSource.setDatabaseName("bank");
-        // mysqlDataSource.setUser("root");
+        mysqlDataSource.setServerName(TIDB_JDBC);
+        mysqlDataSource.setPortNumber(4000);
+        mysqlDataSource.setDatabaseName("bank");
+        mysqlDataSource.setUser("root");
         mysqlDataSource.setPassword("");
 
         // Or you can use jdbc string instead
-        mysqlDataSource.setURL("jdbc:mysql://" + TIDB_JDBC + "/bank?user=root");
+        // mysqlDataSource.setURL("jdbc:mysql://" + TIDB_JDBC + "/bank?user=root");
 
         // 2. And then, create DAO to manager your data
         ExampleDataDAO dao = new ExampleDataDAO(mysqlDataSource);
